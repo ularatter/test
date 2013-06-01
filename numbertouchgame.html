@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>数字タッチゲーム</title>
+    
+    <style>
+        #board > input {
+            width: 100px;
+            margin-right: 10px;
+        }
+    </style>
+    
+</head>
+
+<body>
+	<h1>小さい数字からタッチ</h1>
+	<p>Time: <span id = "time"> 0.0 </span> sec. </p>
+	<div id = "board"> 
+		<input type = "button" id = "button_0" value = "?">
+		<input type = "button" id = "button_1" value = "?">
+		<input type = "button" id = "button_2" value = "?"> <br>
+		<input type = "button" id = "button_3" value = "?">
+		<input type = "button" id = "button_4" value = "?">
+		<input type = "button" id = "button_5" value = "?"> <br>
+		<input type = "button" id = "button_6" value = "?">
+		<input type = "button" id = "button_7" value = "?">
+		<input type = "button" id = "button_8" value = "?"> <br>
+	</div>
+	<p> <input type = "button" value = "Start!" onclick = "timerStart();"> </p>
+	<script> 
+		function timerStart () {
+			initBoard();
+			currentNum = 0; //念のためいれておく
+		}
+		
+		function initBoard(){
+			var nums = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+			var num;
+			for (var i=0; i<9; i++) {
+			num = nums.splice(Math.floor(Math.random() * nums.length),1);
+				//array.splice(index,howmany to be removed,item1,.....,itemX)//
+			document.getElementById('button_' + i).value = num[0];
+				//splice will return an array, that's why we need [].
+				//Even though it's returning only 1 number, it's the first letter of the array
+			
+			}
+		}
+		
+	</script>
+
+</body>
+</html>
