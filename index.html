@@ -28,30 +28,87 @@
 		<input type = "button" id = "button_8" value = "?" onclick = "touched(8)"> <br>
 	</div>
 
-	<p> <input type = "button" value = "Start!" onclick = "timerStart();"> </p>
+	<p> <input type = "button" id = "startButton" value = "ゲームスタート！" onclick = "startAction();"> </p>
 
 	<script> 
 
 		var currentNum;
 		var timer;
 		var startTime;
+		var isPlaying = false;
+		var isReset;
+
+		//isReset = trueだったら、リセットすると表記する
+		//リセット状態ではなく、ただのプレイしていない状態だったら、ゲームスタート！！と表記する。
+
+		setStatus();
+
+		function setStatus(){
+			if(isReset){
+				var startButton = document.getElementById("startButton");
+				startButton.value = "リセットする";
+			}
+			else if(!isReset){
+				var startButton = document.getElementById("startButton");
+				//どうしてこれ二回入れる必要があるの？
+				startButton.value = "ゲームスタート！！";
+			}
+		}
+
+		//リセットが必要な状態でない場合を!isResetとして、その場合はタイマーを走らせる
+		//リセットが必要な状態の場合、リセット処理を行う。
+		//リセット処理は後述する
+
+		function startAction(){
+			if(!isReset){
+				timerStart();
+			}
+			else if(isReset){
+				init();
+			}
+		}
+
+		//ここからリセット処理
+		//リセット処理は、１）timerを0.0に戻る　２）buttonを押せる状態にして？の初期状態に戻す　３）ボタンをゲームスタートに戻す
+		function init(){
+			document.getElementById('time').innerHTML = 0.0;
+
+			document.getElementById('button_0').value = "?";
+			document.getElementById('button_1').value = "?";
+			document.getElementById('button_2').value = "?";
+			document.getElementById('button_3').value = "?";
+			document.getElementById('button_4').value = "?";
+			document.getElementById('button_5').value = "?";
+			document.getElementById('button_6').value = "?";
+			document.getElementById('button_7').value = "?";
+			document.getElementById('button_8').value = "?";
+
+			//Want to change the ? button to be not disabled.. 
+		}
 
 		function timerStart () {
 			initBoard();
 			currentNum = 0; //最初の数字は０なので
-			startTime = (new Date()).getTime(); //？？このかっこの意味がよくわからん
-			runTimer(); 
+			startTime = (new Date()).getTime(); 
+			if (!isPlaying){
+				isPlaying = true;
+				runTimer(); 
+			}
 		}
 		
 		function initBoard(){
 			var nums = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 			var num;
+			var btn;
+
 			for (var i=0; i<9; i++) {
 			num = nums.splice(Math.floor(Math.random() * nums.length),1);
 				//array.splice(index,howmany to be removed,item1,.....,itemX)//
-			document.getElementById('button_' + i).value = num[0];
+			btn = document.getElementById('button_' + i);
 				//splice will return an array, that's why we need [].
 				//Even though it's returning only 1 number, it's the first letter of the array
+			btn.value = num[0];
+			btn.disabled = false;
 			}
 		}
 
@@ -68,7 +125,10 @@
 				//clearTimeout methodを使う
 				//一定時間後に処理を開始する「setTimeout」メソッドの処理を停止するメソッド。
 				//「setTimeout」メソッドの設定で、「ID名=setTimeout(処理,時間設定)」としてID名を設定しておくと、そのID名を「clearTimeout」メソッドで指定することにより、指定したID名の「setTimeout」メソッドの処理を停止できる。
-				clearTimeout(time);
+				clearTimeout(timer);
+				isPlaying = false;
+				isReset = true;
+				setStatus();
 				alert('あなたのスコアは' + document.getElementById('time').innerHTML);
 			}
 
