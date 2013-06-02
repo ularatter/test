@@ -18,17 +18,22 @@
 	<p>Time: <span id = "time"> 0.0 </span> sec. </p>
 	<div id = "board"> 
 		<input type = "button" id = "button_0" value = "?" onclick = "touched(0)" >
-		<input type = "button" id = "button_1" value = "?" onclick = "touched(0)">
-		<input type = "button" id = "button_2" value = "?" onclick = "touched(0)"> <br>
-		<input type = "button" id = "button_3" value = "?" onclick = "touched(0)">
-		<input type = "button" id = "button_4" value = "?" onclick = "touched(0)">
-		<input type = "button" id = "button_5" value = "?" onclick = "touched(0)"> <br>
-		<input type = "button" id = "button_6" value = "?" onclick = "touched(0)">
-		<input type = "button" id = "button_7" value = "?" onclick = "touched(0)">
-		<input type = "button" id = "button_8" value = "?" onclick = "touched(0)"> <br>
+		<input type = "button" id = "button_1" value = "?" onclick = "touched(1)">
+		<input type = "button" id = "button_2" value = "?" onclick = "touched(2)"> <br>
+		<input type = "button" id = "button_3" value = "?" onclick = "touched(3)">
+		<input type = "button" id = "button_4" value = "?" onclick = "touched(4)">
+		<input type = "button" id = "button_5" value = "?" onclick = "touched(5)"> <br>
+		<input type = "button" id = "button_6" value = "?" onclick = "touched(6)">
+		<input type = "button" id = "button_7" value = "?" onclick = "touched(7)">
+		<input type = "button" id = "button_8" value = "?" onclick = "touched(8)"> <br>
 	</div>
+
 	<p> <input type = "button" value = "Start!" onclick = "timerStart();"> </p>
+
 	<script> 
+
+		var currentNum;
+
 		function timerStart () {
 			initBoard();
 			currentNum = 0; //念のためいれておく
@@ -43,10 +48,17 @@
 			document.getElementById('button_' + i).value = num[0];
 				//splice will return an array, that's why we need [].
 				//Even though it's returning only 1 number, it's the first letter of the array
-				
-				
-			
 			}
+		}
+
+		function touched(n){
+			//btnで、今押された番号を指定。'button_' + nのボタンが押されたよ、それはnとしよう。っていう感じ
+			var btn = getElementById('button_' + n);
+			if (btn.value==currentNum){
+				btn.disabled = true;
+				currentNum++;
+			}
+
 		}
 		
 	</script>
