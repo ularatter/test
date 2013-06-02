@@ -28,7 +28,7 @@
 		<input type = "button" id = "button_8" value = "?" onclick = "touched(8)"> <br>
 	</div>
 
-	<p> <input type = "button" id = "startButton" value = "ゲームスタート！" onclick = "startAction();"> </p>
+	<p> <input type = "button" id = "startButton" value = "ゲームスタート！"> </p>
 
 	<script> 
 
@@ -42,6 +42,11 @@
 		//リセット状態ではなく、ただのプレイしていない状態だったら、ゲームスタート！！と表記する。
 
 		setStatus();
+
+		//startButtonが押されたらstartActionをする
+		document.getElementById('startButton').onclick = function(){
+			startAction();
+		}
 
 		function setStatus(){
 			if(isReset){
@@ -84,6 +89,8 @@
 			document.getElementById('button_8').value = "?";
 
 			//Want to change the ? button to be not disabled.. 
+			isReset = false;
+			setStatus();
 		}
 
 		function timerStart () {
