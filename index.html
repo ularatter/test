@@ -33,10 +33,14 @@
 	<script> 
 
 		var currentNum;
+		var timer;
+		var startTime;
 
 		function timerStart () {
 			initBoard();
-			currentNum = 0; //念のためいれておく
+			currentNum = 0; //最初の数字は０なので
+			startTime = (new Date()).getTime(); //？？このかっこの意味がよくわからん
+			runTimer(); 
 		}
 		
 		function initBoard(){
@@ -59,8 +63,23 @@
 				currentNum++;
 			}
 
+			if (currentNum ==9){
+				//現在のタッチされた数字が９だったら、timeをとめる
+				//clearTimeout methodを使う
+				//一定時間後に処理を開始する「setTimeout」メソッドの処理を停止するメソッド。
+				//「setTimeout」メソッドの設定で、「ID名=setTimeout(処理,時間設定)」としてID名を設定しておくと、そのID名を「clearTimeout」メソッドで指定することにより、指定したID名の「setTimeout」メソッドの処理を停止できる。
+				clearTimeout(time);
+				alert('あなたのスコアは' + document.getElementById('time').innerHTML);
+			}
+
 		}
-		
+
+		function runTimer(){
+			document.getElementById('time').innerHTML = (((new Date()).getTime() - startTime) / 1000).toFixed(1);
+			//この時点はまだ、「何秒ごとにtimeの表示を変換」という機能が動いていない。今の時間から、スタートタイムをひいて表示、だけなので、０になってしまう。
+			timer = setTimeout(function(){runTimer();},100);
+			//とりあえず100ミリセカンド毎にrunTimer();処理をしろっていう命令。runtimer処理は、そもそも今書いてる関数なので、処理する毎にtimeに(現在の時間ーstartTime)を行う。
+			}
 	</script>
 
 </body>
