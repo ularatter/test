@@ -3,33 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>数字タッチゲーム</title>
-    
-    <style>
-        #board > input {
-            width: 100px;
-            margin-right: 10px;
-        }
-    </style>
-    
+    <link rel = "stylesheet" href = "style.css">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css">
+    	
 </head>
 
 <body>
+	<div id = "wrapper">
+	<div id ="header">
 	<h1>小さい数字からタッチ</h1>
-	<p>Time: <span id = "time"> 0.0 </span> sec. </p>
+	</div>
+
+	<div id = "timer">
+	<p> Time: <span id = "time"> 0.0 </span>  sec. </p>
+	</div>
 	<div id = "board"> 	
-		<input type = "button" id = "button_0" value = "?" onclick = "touched(0)" >
-		<input type = "button" id = "button_1" value = "?" onclick = "touched(1)">
-		<input type = "button" id = "button_2" value = "?" onclick = "touched(2)"> <br>
-		<input type = "button" id = "button_3" value = "?" onclick = "touched(3)">
-		<input type = "button" id = "button_4" value = "?" onclick = "touched(4)">
-		<input type = "button" id = "button_5" value = "?" onclick = "touched(5)"> <br>
-		<input type = "button" id = "button_6" value = "?" onclick = "touched(6)">
-		<input type = "button" id = "button_7" value = "?" onclick = "touched(7)">
-		<input type = "button" id = "button_8" value = "?" onclick = "touched(8)"> <br>
+
+		<input type = "button" class = "css3button" id = "button_0" onclick = "touched(0)" value = "?"> 
+		<input type = "button" class = "css3button" id = "button_1" onclick = "touched(1)" value = "?"> 
+		<input type = "button" class = "css3button" id = "button_2" onclick = "touched(2)" value = "?"> <br>
+		<input type = "button" class = "css3button" id = "button_3" onclick = "touched(3)" value = "?"> 
+		<input type = "button" class = "css3button" id = "button_4" onclick = "touched(4)" value = "?">
+		<input type = "button" class = "css3button" id = "button_5" onclick = "touched(5)" value = "?"> <br>
+		<input type = "button" class = "css3button" id = "button_6" onclick = "touched(6)" value = "?">
+		<input type = "button" class = "css3button" id = "button_7" onclick = "touched(7)" value = "?">
+		<input type = "button" class = "css3button" id = "button_8" onclick = "touched(8)" value = "?"> <br>
+
 	</div>
 
 	<p> <input type = "button" id = "startButton" value = "ゲームスタート！"> </p>
 
+</div>
 	<script> 
 
 		var currentNum;
@@ -45,17 +49,22 @@
 
 		//startButtonが押されたらstartActionをする
 		document.getElementById('startButton').onclick = function(){
+			var startButton = document.getElementById('startButton')
+			startButton.disabled = true
 			startAction();
+
 		}
 
 		function setStatus(){
 			if(isReset){
 				var startButton = document.getElementById("startButton");
 				startButton.value = "リセットする";
+				startButton.disabled = false
 			}
 			else if(!isReset){
 				var startButton = document.getElementById("startButton");
 				//どうしてこれ二回入れる必要があるの？
+				startButton.disabled = false
 				startButton.value = "ゲームスタート！！";
 			}
 		}
@@ -123,6 +132,7 @@
 			//btnで、今押された番号を指定。'button_' + nのボタンが押されたよ、それはnとしよう。っていう感じ
 			var btn = document.getElementById('button_' + n);
 			if (btn.value==currentNum){
+				//ここあやしい。innerHTMLのバリューって認識されなさそう	
 				btn.disabled = true;
 				currentNum++;
 			}
