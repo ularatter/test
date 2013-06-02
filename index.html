@@ -16,7 +16,7 @@
 <body>
 	<h1>小さい数字からタッチ</h1>
 	<p>Time: <span id = "time"> 0.0 </span> sec. </p>
-	<div id = "board"> 
+	<div id = "board"> 	
 		<input type = "button" id = "button_0" value = "?" onclick = "touched(0)" >
 		<input type = "button" id = "button_1" value = "?" onclick = "touched(1)">
 		<input type = "button" id = "button_2" value = "?" onclick = "touched(2)"> <br>
@@ -53,7 +53,7 @@
 
 		function touched(n){
 			//btnで、今押された番号を指定。'button_' + nのボタンが押されたよ、それはnとしよう。っていう感じ
-			var btn = getElementById('button_' + n);
+			var btn = document.getElementById('button_' + n);
 			if (btn.value==currentNum){
 				btn.disabled = true;
 				currentNum++;
